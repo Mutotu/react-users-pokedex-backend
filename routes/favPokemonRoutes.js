@@ -2,9 +2,9 @@ const favPokemonRoutes = require("express").Router();
 const favPokemonController = require("../controllers/favPokemonController");
 const auth = require("../middleWare/verfiy");
 /////[auth.verify] to evaluate if the user is still logged in
-favPokemonRoutes.get("/", [auth.verify], favPokemonController.index);
+favPokemonRoutes.get("/:userId", [auth.verify], favPokemonController.index);
 favPokemonRoutes.post("/", [auth.verify], favPokemonController.create);
-favPokemonRoutes.delete("/:id", [auth.verify], favPokemonController.destroy);
+favPokemonRoutes.delete("/:name", [auth.verify], favPokemonController.destroy);
 // favPokemonRoutes.post("/save", favPokemonController.post);
 module.exports = favPokemonRoutes;
 

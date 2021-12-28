@@ -3,7 +3,11 @@ const favPokemonController = {};
 
 favPokemonController.index = async (req, res) => {
   try {
-    const favPokemon = await models.favPokemon.findAll();
+    const favPokemon = await models.favPokemon.findAll({
+      where: {
+        userId: req.params.userId,
+      },
+    });
     res.json({ favPokemon });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -75,7 +79,7 @@ favPokemonController.create = async (req, res) => {
       userId: req.body.userId,
     });
     console.log(newFavPokemon);
-    res.json({ newFavPokemon });
+    res.status(201).json({ newFavPokemon });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -84,7 +88,7 @@ favPokemonController.create = async (req, res) => {
 favPokemonController.destroy = async (req, res) => {
   try {
     const deleteResult = await models.favPokemon.destroy({
-      where: { id: req.params.id },
+      where: { name: req.params.name },
     });
     res.json({ deleteResult });
   } catch (error) {

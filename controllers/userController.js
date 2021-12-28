@@ -20,14 +20,14 @@ userController.getUser = async (req, res) => {
     });
     if (foundUser && foundUser.password === req.body.password) {
       req.userId = foundUser.id;
-      res.json({ foundUser });
-    } else {
-      res.json(null);
-    }
 
-    res.json({ foundUser });
+      res.status(200).json({ user: foundUser });
+    } else {
+      res.status(404).json({ error: "user not found" });
+    }
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
   }
 };
 
